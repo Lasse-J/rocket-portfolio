@@ -2,6 +2,7 @@
   "name": "rocket-portfolio",
   "version": "0.1.0",
   "private": true,
+  "author": "lasse.juusela@gmail.com",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
