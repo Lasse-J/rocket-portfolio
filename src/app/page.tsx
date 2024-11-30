@@ -76,7 +76,9 @@ useEffect(() => {
           assets={assets}
         />
 
-        <Values />
+        <Values 
+          assets={assets}
+        />
 
         <List />
       </div>
