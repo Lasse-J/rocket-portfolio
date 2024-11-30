@@ -14,6 +14,7 @@ import down from '@/app/assets/down.svg'
 
 const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets }) => {
 	const [value, setValue] = useState(0)
+	const [percentageChange, setPercentageChange] = useState(0)
 
 	const [isAssetsModalOpen, setIsAssetsModalOpen] = useState(false)
 	const [isRemoveAssetsModalOpen, setIsRemoveAssetsModalOpen] = useState(false)
@@ -37,11 +38,32 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 		setValue(total)
 	}
 
+	const calculatePercentageChange = () => {
+		let total = 0
+
+		for(var i = 0; i < assets.length; i++) {
+			if(assets[i].balance === 0) { continue }
+			
+			// Get past & current values
+			console.log(assets[i])
+
+			const pastValue = (assets[i].market.current_price - assets[i].market.price_change_24h) * assets[i].balance
+			const currentValue = assets[i].value
+			const change = ((currentValue - pastValue) / pastValue) * 100
+
+			total += change
+		}
+
+		setPercentageChange(total)
+	}
+
 	useEffect(() => {
 		if (assets.length === 0) {
 			setValue(0)
+			setPercentageChange(0)
 		} else {
 			calculateValue()
+			calculatePercentageChange()
 		}
 	})
 
@@ -76,14 +98,14 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 				<p>{value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
 			</div>
 			<div className="overview__change bg-primary-light text-light w-full h-[125px] p-4 rounded-md relative">
-				<h3>% Change</h3>
-				<span className="text-green-500">0.00%
+				<h3>24h Change</h3>
+				<span className={percentageChange < 0 ? "text-red-500" : "text-green-500"}>{percentageChange.toFixed(2)}%
 					<div className="absolute top-[50%] left-[70%] transform -translate-x-1/2 -translate-y-1/2">
 						<Image
-							src={up}
+							src={percentageChange < 0 ? down : up}
 							width={20}
 							height={20}
-							alt="Trending up"
+							alt="Change direction"
 						/>
 					</div>
 				</span>
