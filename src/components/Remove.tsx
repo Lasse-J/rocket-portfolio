@@ -2,13 +2,13 @@ import Image from 'next/image'
 import close from '@/app/assets/close.svg'
 import { Button } from '@/components/ui/button'
 
-const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTrackedAssets }) => {
+const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTrackedAssets, assets, setAssets }) => {
 
 	const removeAssetsHandler = (e) => {
 		e.preventDefault()
 		const assetToRemove = e.target.removeAsset.value;
 //		setTrackedAssets(trackedAssets.filter((removeAsset) => removeAsset !== assetToRemove))
-		setTrackedAssets(trackedAssets.filter((assetObj) => assetObj.asset !== assetToRemove));
+		setAssets(assets.filter((assetObj) => assetObj.id !== assetToRemove));
 		console.log('Removed asset', assetToRemove)
 		setIsRemoveAssetsModalOpen(false)
 	}
@@ -37,10 +37,10 @@ const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTracked
 
 				<form onSubmit={removeAssetsHandler}>
 					<select name="removeAsset" id="removeAsset" className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4">
-						{console.log(trackedAssets)}
-						{trackedAssets && (
-							trackedAssets.map((assetObj, index) => (
-								<option key={index} value={assetObj.asset}>{assetObj.asset.toUpperCase()} ({assetObj.balance})</option>
+						{console.log('Assets:', assets)}
+						{assets && (
+							assets.map((assetObj, index) => (
+								<option key={index} value={assetObj.id}>{assetObj.id.toUpperCase()} ({assetObj.balance})</option>
 							))
 						)}
 					</select>

@@ -13,6 +13,7 @@ import pricesSnapshot from '@/app/snapshots/prices.json'
 export default function Home() {
   const [trackedAssets, setTrackedAssets] = useState([])
   const [markets, setMarkets] = useState(null)
+  const [assets, setAssets] = useState([])
 
   // TODO: Make API call to fetch market data
   const getMarkets = async () => {
@@ -43,7 +44,7 @@ export default function Home() {
       value: market.current_price * balance
     }
 
-    console.log("asset", asset)
+    setAssets([...assets, asset])
   }
 
 useEffect(() => {
@@ -64,6 +65,8 @@ useEffect(() => {
           markets={markets}
           trackedAssets={trackedAssets}
           setTrackedAssets={setTrackedAssets}
+          assets={assets}
+          setAssets={setAssets}
         />
       </div>
       <div className="details">
