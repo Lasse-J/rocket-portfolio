@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import NavButton from '@/components/NavButton'
 import { ModeToggle } from '@/components/ModeToggle'
+import { CurrencyToggle } from '@/components/CurrencyToggle'
 
 const Navbar = () => {
 	return (
@@ -11,19 +12,22 @@ const Navbar = () => {
 	 			<div className="flex items-center gap-2">
 	 				<NavButton href="/" label="Home" icon={HomeIcon} />
 	 					<Link href="/" className="flex justify-center items-center gap-2 ml-0 mt-1" title="Home">
-	 						<h1 className="">
-	 							Rocket Portfolio
-	 						</h1>
 	 					</Link>
+					<h1 className="">
+						Rocket Portfolio
+					</h1>
 	 			</div>
 
 	 			<div className="flex items-center">
+	 				<nav>
+	 					<CurrencyToggle />
 
-	 				<NavButton href="/markets" label="Markets" icon={ChartCandlestick} />
+		 				<NavButton href="/markets" label="Markets" icon={ChartCandlestick} />
 
-	 				<NavButton href="/portfolio" label="Portfolio" icon={BriefcaseBusiness} />
+		 				<NavButton href="/portfolio" label="Portfolio" icon={BriefcaseBusiness} />
 
-	 				<ModeToggle />
+		 				<ModeToggle />
+	 				</nav>
 		 		</div>
 	 		</div>
 	 	</header>

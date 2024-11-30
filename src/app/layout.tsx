@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
-import { Lacquer } from 'next/font/google';
-import { Roboto } from 'next/font/google';
-import { Doto } from 'next/font/google';
-import { Inter } from 'next/font/google';
-import { Josefin_Sans } from 'next/font/google';
 import "./globals.css";
-import Navbar from '@/components/Navbar';
 import { ThemeProvider } from "@/components/theme-provider"
-
-const lacquer = Lacquer({ subsets: ['latin'], weight: ['400'] })
-const roboto = Roboto({ subsets: ['latin'], weight: ['300'] })
-const doto = Doto({ subsets: ['latin'] })
-const inter = Inter({ subsets: ['latin'] })
+import { Josefin_Sans } from 'next/font/google';
 const josefin_sans = Josefin_Sans({ subsets: ['latin'] })
 
+// Components
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
 export const metadata: Metadata = {
-  title: "Rocket Portfolio",
+  title: {
+    template: '%s | Rocket Portfolio',
+    default: 'Rocket Portfolio',
+  },
   description: "Crypto portfolio tracker app",
+  applicationName: 'Portfolio Tracker'
 };
 
 export default function RootLayout({
@@ -38,6 +36,9 @@ export default function RootLayout({
           </div>
           <div className="animate-appear">
             {children}
+          </div>
+          <div className="animate-appear">
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
