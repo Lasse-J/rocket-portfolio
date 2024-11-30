@@ -39,22 +39,21 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 	}
 
 	const calculatePercentageChange = () => {
-		let total = 0
+		let currentValue = 0
+		let pastValue = 0
+		let change = 0
 
 		for(var i = 0; i < assets.length; i++) {
 			if(assets[i].balance === 0) { continue }
-			
+
 			// Get past & current values
-			console.log(assets[i])
+			pastValue += (assets[i].market.current_price - assets[i].market.price_change_24h) * assets[i].balance
+			currentValue += assets[i].value
 
-			const pastValue = (assets[i].market.current_price - assets[i].market.price_change_24h) * assets[i].balance
-			const currentValue = assets[i].value
-			const change = ((currentValue - pastValue) / pastValue) * 100
-
-			total += change
+			change = ((currentValue - pastValue) / pastValue) * 100
 		}
 
-		setPercentageChange(total)
+		setPercentageChange(change)
 	}
 
 	useEffect(() => {
