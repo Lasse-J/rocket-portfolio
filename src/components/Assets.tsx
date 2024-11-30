@@ -1,11 +1,22 @@
 import Image from 'next/image'
 import close from '@/app/assets/close.svg'
+import { Button } from '@/components/ui/button'
 
-const Assets = ({ setIsAssetsModalOpen }) => {
+const Assets = ({ setIsAssetsModalOpen, markets, trackedAssets, setTrackedAssets }) => {
 
 const assetsHandler = (e) => {
 	e.preventDefault()
-	console.log('e.target.value')
+	setTrackedAssets([...trackedAssets, e.target.addAssets.value])
+	console.log('Added asset', e.target.addAssets.value)
+	setIsAssetsModalOpen(false)
+}
+
+const removeAssetsHandler = (e) => {
+	e.preventDefault()
+	const assetToRemove = e.target.removeAsset.value;
+	setTrackedAssets(trackedAssets.filter((removeAsset) => removeAsset !== assetToRemove))
+	console.log('Removed asset', assetToRemove)
+	setIsAssetsModalOpen(false)
 }
 
 const closeHandler = () => {
@@ -14,33 +25,36 @@ const closeHandler = () => {
 
 	return (
 		<div className="popup fixed top-0 left-0 z-[100] bg-black/50 w-full h-full">
-			<div className="popup__content account absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light w-2/3 h-1/2 p-4 rounded-lg">
-				<h3>Add/Remove Assets</h3>
+			<div className="popup__content assets absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light dark:bg-secondary-dark dark:text-white w-[30%] h-[25%] p-4 rounded-lg">
+				<h3 className="dark:text-black">Select Asset</h3>
+				<br />
 
-				<button>
-					<Image
-						src={close}
-						width={15}
-						height={15}
-						onClick={closeHandler}
-						alt="Close popup"
-					/>
-				</button>
+				<div className="absolute top-[10%] left-[95%] transform -translate-x-1/2 -translate-y-1/2">
+					<button>
+						<Image
+							src={close}
+							width={25}
+							height={25}
+							onClick={closeHandler}
+							alt="Close popup"
+						/>
+					</button>
+				</div>
 
-				<form>
-					<label htmlFor="account">Enter Ethereum Address</label>
-					<input 
-						type="text" 
-						name="account" 
-						id="account"
-						placeholder="0x0000000000000000000000000000000000000000"
-					></input>
-					<input 
-						type="submit"
-						className="bg-blue-500 text-light w-[125px] h-[40px] p-4 border-none rounded-md cursor-pointer transition-all duration-250 ease-in-out"
-						onSubmit={assetsHandler}
-					></input>
+				<form onSubmit={assetsHandler}>
+					<select name="addAssets" id="addAssets" className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4">
+						{markets && (
+							markets.map((market, index) => (
+								<option key={index} value={market.id}>{market.symbol.toUpperCase()}</option>
+							))
+						)}
+					</select>
+					<br />
+					<Button placeholder="Add">
+						<input type="submit" />
+					</Button>
 				</form>
+
 			</div>
 		</div>
 	)
