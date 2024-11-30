@@ -1,24 +1,64 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Components
 import Overview from '@/components/Overview';
 
 // Snapshot Data
 import marketSnapshot from '@/app/snapshots/markets.json'
+import tokensSnapshot from '@/app/snapshots/tokens.json'
+import pricesSnapshot from '@/app/snapshots/prices.json'
 
 export default function Home() {
   const [trackedAssets, setTrackedAssets] = useState([])
-  const [markets, setMarkets] = useState(marketSnapshot)
+  const [markets, setMarkets] = useState(null)
 
+  // TODO: Make API call to fetch market data
+  const getMarkets = async () => {
+    setMarkets(marketSnapshot)
+  }
+
+  const getAsset = async () => {
+    // Fetch id
+    const id = trackedAssets[trackedAssets.length - 1]
+    console.log('Asset ID and balance:', id.asset, id.balance)
+
+    // Market data
+    const market = markets.find((market) => market.id === id.asset)
+    console.log('Market', market)
+
+    // Prices
+    const prices = pricesSnapshot[id.asset]
+
+    // Balance
+    const balance = id.balance
+
+    // Asset object
+    const asset = {
+      id: id.asset,
+      market: market,
+      prices: prices,
+      balance: id.balance,
+      value: market.current_price * balance
+    }
+
+    console.log("asset", asset)
+  }
+
+useEffect(() => {
+  if(!markets) {
+    getMarkets()
+  }
+  if(trackedAssets.length !== 0) {
+    getAsset()
+  }
+}, [trackedAssets])
 
   return (
     <main className="flex flex-col justify-center text-center text-black max-w-7xl mx-auto h-dvh">
       <div className="flex flex-col gap-6 p-12 rounded-xl bg-secondary-light w-4/5 mx-auto sm:text-2xl">
         <h2>Portfolio Overview</h2>
-
-        {console.log(trackedAssets)}
 
         <Overview 
           markets={markets}

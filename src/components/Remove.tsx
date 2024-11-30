@@ -7,7 +7,8 @@ const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTracked
 	const removeAssetsHandler = (e) => {
 		e.preventDefault()
 		const assetToRemove = e.target.removeAsset.value;
-		setTrackedAssets(trackedAssets.filter((removeAsset) => removeAsset !== assetToRemove))
+//		setTrackedAssets(trackedAssets.filter((removeAsset) => removeAsset !== assetToRemove))
+		setTrackedAssets(trackedAssets.filter((assetObj) => assetObj.asset !== assetToRemove));
 		console.log('Removed asset', assetToRemove)
 		setIsRemoveAssetsModalOpen(false)
 	}
@@ -38,8 +39,8 @@ const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTracked
 					<select name="removeAsset" id="removeAsset" className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4">
 						{console.log(trackedAssets)}
 						{trackedAssets && (
-							trackedAssets.map((index) => (
-								<option key={index} value={index}>{index}</option>
+							trackedAssets.map((assetObj, index) => (
+								<option key={index} value={assetObj.asset}>{assetObj.asset.toUpperCase()} ({assetObj.balance})</option>
 							))
 						)}
 					</select>

@@ -19,6 +19,9 @@ const Navbar = () => {
 	 			</div>
 
 	 			<div className="flex items-center">
+	 				BTC: $96.000 |
+					ETH: $3.600 |
+					BTC dominance: 55%
 	 				<nav>
 	 					<CurrencyToggle />
 

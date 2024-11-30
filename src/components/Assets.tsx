@@ -6,8 +6,8 @@ const Assets = ({ setIsAssetsModalOpen, markets, trackedAssets, setTrackedAssets
 
 const assetsHandler = (e) => {
 	e.preventDefault()
-	setTrackedAssets([...trackedAssets, e.target.addAssets.value])
-	console.log('Added asset', e.target.addAssets.value)
+	setTrackedAssets([...trackedAssets, { asset: e.target.addAssets.value, balance: parseFloat(e.target.addBalance.value) } ])
+	console.log('Added asset and balance:', { asset: e.target.addAssets.value, balance: parseFloat(e.target.addBalance.value) })
 	setIsAssetsModalOpen(false)
 }
 
@@ -25,7 +25,7 @@ const closeHandler = () => {
 
 	return (
 		<div className="popup fixed top-0 left-0 z-[100] bg-black/50 w-full h-full">
-			<div className="popup__content assets absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light dark:bg-secondary-dark dark:text-white w-[30%] h-[25%] p-4 rounded-lg">
+			<div className="popup__content assets absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light dark:bg-secondary-dark dark:text-white w-[30%] h-[40%] p-4 rounded-lg">
 				<h3 className="dark:text-black">Select Asset</h3>
 				<br />
 
@@ -42,16 +42,30 @@ const closeHandler = () => {
 				</div>
 
 				<form onSubmit={assetsHandler}>
-					<select name="addAssets" id="addAssets" className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4">
-						{markets && (
+					<select 
+						name="addAssets"
+						id="addAssets"
+						className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4"
+					>
+						{markets &&
 							markets.map((market, index) => (
-								<option key={index} value={market.id}>{market.symbol.toUpperCase()}</option>
-							))
-						)}
+								<option key={index} value={market.id}>
+									{market.symbol.toUpperCase()}
+								</option>
+							))}
 					</select>
 					<br />
-					<Button placeholder="Add">
-						<input type="submit" />
+					<input
+						type="number"
+						name="addBalance"
+						id="addBalance"
+						step="any"
+						placeholder="0.0"
+						className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4"
+					/>
+					<br />
+					<Button>
+						<input type="submit" value="Add Asset" />
 					</Button>
 				</form>
 
