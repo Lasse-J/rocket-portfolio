@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 
 // Components
 import Overview from '@/components/Overview';
+import Holdings from '@/components/Holdings';
+import Values from '@/components/Values';
+import List from '@/components/List';
 
 // Snapshot Data
 import marketSnapshot from '@/app/snapshots/markets.json'
@@ -57,8 +60,8 @@ useEffect(() => {
 }, [trackedAssets])
 
   return (
-    <main className="flex flex-col justify-center text-center text-black max-w-7xl mx-auto h-dvh">
-      <div className="flex flex-col gap-6 p-12 rounded-xl bg-secondary-light w-4/5 mx-auto sm:text-2xl">
+    <main className="flex flex-col justify-center text-center text-black max-w-7xl mx-auto h-full">
+      <div className="flex flex-col gap-6 p-12 rounded-xl bg-secondary-light w-4/5 mt-2 mx-auto sm:text-2xl">
         <h2>Portfolio Overview</h2>
 
         <Overview 
@@ -68,6 +71,14 @@ useEffect(() => {
           assets={assets}
           setAssets={setAssets}
         />
+
+        <Holdings 
+          assets={assets}
+        />
+
+        <Values />
+
+        <List />
       </div>
       <div className="details">
         <div className="divider absolute top-[100px] -left-1/2 -z-50 w-[200%] h-[50px] bg-blue-500">
