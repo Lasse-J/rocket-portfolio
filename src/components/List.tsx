@@ -26,7 +26,7 @@ const List = ({ assets, setAssets, setTrackedAssets }) => {
 
 	return (
 		<div className="list bg-secondary-light col-span-full row-start-3 overflow-auto row-start-2 my-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 grid-dense place-items-end items-center pb-8 transition-all duration-250 ease-in-out">
-			<div className="bg-primary-light text-light w-full h-[250px] p-4 rounded-md relative">
+			<div className="bg-primary-light text-light w-full h-full p-4 rounded-md relative">
 			<h3>Assets List</h3>
 			<table className="border-b text-light border-collapse p-4 text-left w-full mt-1">
 				<thead>

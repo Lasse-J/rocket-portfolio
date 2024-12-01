@@ -7,7 +7,6 @@ const Assets = ({ setIsAssetsModalOpen, markets, trackedAssets, setTrackedAssets
 const assetsHandler = (e) => {
 	e.preventDefault()
 	setTrackedAssets([...trackedAssets, { asset: e.target.addAssets.value, balance: parseFloat(e.target.addBalance.value) } ])
-	console.log('Added asset and balance:', { asset: e.target.addAssets.value, balance: parseFloat(e.target.addBalance.value) })
 	setIsAssetsModalOpen(false)
 }
 
@@ -15,7 +14,6 @@ const removeAssetsHandler = (e) => {
 	e.preventDefault()
 	const assetToRemove = e.target.removeAsset.value;
 	setTrackedAssets(trackedAssets.filter((removeAsset) => removeAsset !== assetToRemove))
-	console.log('Removed asset', assetToRemove)
 	setIsAssetsModalOpen(false)
 }
 

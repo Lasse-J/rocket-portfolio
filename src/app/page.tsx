@@ -18,22 +18,39 @@ export default function Home() {
   const [markets, setMarkets] = useState(null)
   const [assets, setAssets] = useState([])
 
-  // TODO: Make API call to fetch market data
+  // Makes API call to fetch market data
   const getMarkets = async () => {
-    setMarkets(marketSnapshot)
+    const ROOT_URL = `https://api.coingecko.com/api/v3`
+    const ENDPOINT = `/coins/markets`
+    const AMOUNT = 1500
+    const ARGUMENTS = `?vs_currency=usd&order=market_cap_desc&per_page=${AMOUNT}&page=1&sparkline=false&locale=en`
+
+    const response = await fetch(ROOT_URL + ENDPOINT + ARGUMENTS)
+
+    setMarkets(await response.json())
   }
 
   const getAsset = async () => {
     // Fetch id
     const id = trackedAssets[trackedAssets.length - 1]
-    console.log('Asset ID and balance:', id.asset, id.balance)
 
     // Market data
     const market = markets.find((market) => market.id === id.asset)
-    console.log('Market', market)
+
+    // Asset details (API Endpoint)
+    const ROOT_URL = `https://api.coingecko.com/api/v3`
+    const ASSET_ENDPOINT = `/coins/${id.asset}`
+    const ASSET_ARGUMENTS = `?tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
+
+    const assetResponse = await fetch(ROOT_URL + ASSET_ENDPOINT + ASSET_ARGUMENTS)
+    const tokensSnapshot = await assetResponse.json()
 
     // Prices
-    const prices = pricesSnapshot[id.asset]
+    const PRICES_ENDPOINT = `/coins/${id.asset}/market_chart/`
+    const PRICES_ARGUMENTS = `?vs_currency=usd&days=7&interval=daily`
+
+    const pricesResponse = await fetch(ROOT_URL + PRICES_ENDPOINT + PRICES_ARGUMENTS)
+    const prices = (await pricesResponse.json()).prices
 
     // Balance
     const balance = id.balance
