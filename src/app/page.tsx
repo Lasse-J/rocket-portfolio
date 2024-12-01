@@ -80,7 +80,11 @@ useEffect(() => {
           assets={assets}
         />
 
-        <List />
+        <List 
+          assets={assets}
+          setAssets={setAssets}
+          setTrackedAssets={setTrackedAssets}
+        />
       </div>
       <div className="details">
         <div className="divider absolute top-[100px] -left-1/2 -z-50 w-[200%] h-[50px] bg-blue-500">
