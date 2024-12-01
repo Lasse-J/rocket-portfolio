@@ -21,6 +21,9 @@ const List = ({ assets, setAssets, setTrackedAssets }) => {
 			const assetsArr = assets.slice()
 			assetsArr.splice(index, 1)
 			setAssets(assetsArr)
+
+			// Save assets to localStorage
+    	localStorage.setItem('assets', JSON.stringify(assetsArr));
 		}
 	}
 
@@ -31,7 +34,6 @@ const List = ({ assets, setAssets, setTrackedAssets }) => {
 			<table className="border-b text-light border-collapse p-4 text-left w-full mt-1">
 				<thead>
 					<tr className="border-b text-light border-collapse p-4 text-left">
-						<th>#</th>
 						<th></th>
 						<th>Asset</th>
 						<th>Symbol</th>
@@ -45,7 +47,6 @@ const List = ({ assets, setAssets, setTrackedAssets }) => {
 				<tbody>
 					{assets.map((asset, index) => (
 					<tr key={index} className="border-b text-light border-collapse p-4 text-left">
-						<td>{index + 1}</td>
 						<td>
 							<Image 
 								src={asset.market.image}

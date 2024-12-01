@@ -4,13 +4,15 @@ import { Button } from '@/components/ui/button'
 
 const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTrackedAssets, assets, setAssets }) => {
 
-	const removeAssetsHandler = (e) => {
+	const removeAssetHandler = (e) => {
 		e.preventDefault()
 		const assetToRemove = e.target.removeAsset.value;
-//		setTrackedAssets(trackedAssets.filter((removeAsset) => removeAsset !== assetToRemove))
-		setAssets(assets.filter((assetObj) => assetObj.id !== assetToRemove));
-		console.log('Removed asset', assetToRemove)
+		const assetsArr = assets.filter((assetObj) => assetObj.id !== assetToRemove)
+		setAssets(assetsArr)
 		setIsRemoveAssetsModalOpen(false)
+
+		// Save assets to localStorage
+  	localStorage.setItem('assets', JSON.stringify(assetsArr));
 	}
 
 	const closeHandler = () => {
@@ -35,7 +37,7 @@ const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTracked
 					</button>
 				</div>
 
-				<form onSubmit={removeAssetsHandler}>
+				<form onSubmit={removeAssetHandler}>
 					<select name="removeAsset" id="removeAsset" className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4">
 						{console.log('Assets:', assets)}
 						{assets && (

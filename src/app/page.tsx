@@ -9,9 +9,9 @@ import Values from '@/components/Values';
 import List from '@/components/List';
 
 // Snapshot Data
-import marketSnapshot from '@/app/snapshots/markets.json'
-import tokensSnapshot from '@/app/snapshots/tokens.json'
-import pricesSnapshot from '@/app/snapshots/prices.json'
+// import marketSnapshot from '@/app/snapshots/markets.json'
+// import tokensSnapshot from '@/app/snapshots/tokens.json'
+// import pricesSnapshot from '@/app/snapshots/prices.json'
 
 export default function Home() {
   const [trackedAssets, setTrackedAssets] = useState([])
@@ -22,7 +22,7 @@ export default function Home() {
   const getMarkets = async () => {
     const ROOT_URL = `https://api.coingecko.com/api/v3`
     const ENDPOINT = `/coins/markets`
-    const AMOUNT = 1500
+    const AMOUNT = 500
     const ARGUMENTS = `?vs_currency=usd&order=market_cap_desc&per_page=${AMOUNT}&page=1&sparkline=false&locale=en`
 
     const response = await fetch(ROOT_URL + ENDPOINT + ARGUMENTS)
@@ -63,18 +63,32 @@ export default function Home() {
       balance: id.balance,
       value: market.current_price * balance
     }
-
+    
+    const updatedAssets = [...assets, asset];
     setAssets([...assets, asset])
+
+    // Save assets to localStorage
+    localStorage.setItem('assets', JSON.stringify(updatedAssets));
   }
 
-useEffect(() => {
-  if(!markets) {
-    getMarkets()
-  }
-  if(trackedAssets.length !== 0) {
-    getAsset()
-  }
-}, [trackedAssets])
+  useEffect(() => {
+    // Load assets from localStorage on app load
+    const storedAssets = localStorage.getItem('assets')
+    if (storedAssets) {
+      setAssets(JSON.parse(storedAssets))
+    }
+
+    // Fetch markets if not already loaded
+    if (!markets) {
+      getMarkets()
+    }
+  }, [])
+
+  useEffect(() => {
+    if(markets && trackedAssets.length !== 0) {
+      getAsset()
+    }
+  }, [trackedAssets])
 
   return (
     <main className="flex flex-col justify-center text-center text-black max-w-7xl mx-auto h-full">
