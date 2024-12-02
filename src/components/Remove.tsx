@@ -2,7 +2,7 @@ import Image from 'next/image'
 import close from '@/app/assets/close.svg'
 import { Button } from '@/components/ui/button'
 
-const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTrackedAssets, assets, setAssets }) => {
+const Remove = ({ setIsRemoveAssetsModalOpen, assets, setAssets }) => {
 
 	const removeAssetHandler = (e) => {
 		e.preventDefault()
@@ -21,7 +21,7 @@ const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTracked
 
 	return (
 		<div className="popup fixed top-0 left-0 z-[100] bg-black/50 w-full h-full">
-			<div className="popup__content remove__assets absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light dark:bg-secondary-dark dark:text-white w-[30%] h-[25%] p-4 rounded-lg">
+			<div className="popup__content remove__assets absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light dark:bg-secondary-dark dark:text-white w-[30%] h-[fit] p-4 rounded-lg">
 				<h3 className="dark:text-white">Remove Asset</h3>
 				<br />
 

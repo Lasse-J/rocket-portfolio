@@ -3,7 +3,7 @@ import close from '@/app/assets/close.svg'
 import up from '@/app/assets/up-white.svg'
 import down from '@/app/assets/down-white.svg'
 
-const Details = ({ isDetailsModalOpen, setIsDetailsModalOpen, asset }) => {
+const Details = ({ setIsDetailsModalOpen, asset }) => {
 	const closeHandler = () => {
 		setIsDetailsModalOpen(false)
 	}

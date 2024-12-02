@@ -9,10 +9,10 @@ const Holdings = ({ assets }) => {
 	const [values, setValues] = useState(null)
 
 	const calculateValue = () => {
-		let syms = []
-		let vals = []
+		const syms = []
+		const vals = []
 
-		for (var i = 0; i < assets.length; i++) {
+		for (let i = 0; i < assets.length; i++) {
 			syms.push(assets[i].market.symbol.toUpperCase())
 			vals.push(assets[i].value)
 		}

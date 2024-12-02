@@ -35,7 +35,7 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 	const calculateValue = () => {
 		let total = 0
 
-		for(var i = 0; i < assets.length; i++) {
+		for(let i = 0; i < assets.length; i++) {
 			if(assets[i].balance === 0) { continue }
 			total += assets[i].value
 		}
@@ -48,7 +48,7 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 		let pastValue = 0
 		let change = 0
 
-		for(var i = 0; i < assets.length; i++) {
+		for(let i = 0; i < assets.length; i++) {
 			if(assets[i].balance === 0) { continue }
 
 			// Get past & current values
@@ -168,9 +168,6 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 			{isRemoveAssetsModalOpen && 
 				<Remove 
 					setIsRemoveAssetsModalOpen={setIsRemoveAssetsModalOpen}
-					markets={markets}
-					trackedAssets={trackedAssets}
-					setTrackedAssets={setTrackedAssets}
 					assets={assets}
 					setAssets={setAssets}
 				/>

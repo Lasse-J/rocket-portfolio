@@ -17,7 +17,7 @@ const Values = ({ assets }) => {
 			}
 		}
 
-		let dates = Object.values(assets[0].prices).flatMap(price => price[0])
+		const dates = Object.values(assets[0].prices).flatMap(price => price[0])
 
 		for (let i = 0; i < dates.length; i++) {
 			dates[i] = new Date(dates[i]).toLocaleDateString(undefined, { 

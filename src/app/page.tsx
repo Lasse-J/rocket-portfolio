@@ -43,7 +43,7 @@ export default function Home() {
     const ASSET_ARGUMENTS = `?tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
 
     const assetResponse = await fetch(ROOT_URL + ASSET_ENDPOINT + ASSET_ARGUMENTS)
-    const tokensSnapshot = await assetResponse.json()
+//    const tokensSnapshot = await assetResponse.json()
 
     // Prices
     const PRICES_ENDPOINT = `/coins/${id.asset}/market_chart/`
@@ -120,8 +120,6 @@ export default function Home() {
               markets={markets}
               assets={assets}
               setAssets={setAssets}
-              trackedAssets={trackedAssets}
-              setTrackedAssets={setTrackedAssets}
             />
         </div>
         <div className="details">

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
-import { Josefin_Sans, Roboto, Goldman } from 'next/font/google';
-const josefin_sans = Josefin_Sans({ subsets: ['latin'] });
-const roboto = Roboto({ weight: '300', subsets: ['latin'] });
+import { Goldman } from 'next/font/google';
 const goldman = Goldman({ weight: '400', subsets: ['latin'] });
 
 // Components

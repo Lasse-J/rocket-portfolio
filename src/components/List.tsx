@@ -5,7 +5,7 @@ import minus from '@/app/assets/minus.svg'
 import refresh from '@/app/assets/refresh.svg'
 import Details from '@/components/Details'
 
-const List = ({ markets, assets, setAssets, setTrackedAssets, trackedAssets }) => {
+const List = ({ markets, assets, setAssets }) => {
 	const [asset, setAsset] = useState(false)
 	const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
 
@@ -169,7 +169,6 @@ const List = ({ markets, assets, setAssets, setTrackedAssets, trackedAssets }) =
 
 			{isDetailsModalOpen && 
 				<Details 
-					isDetailsModalOpen={isDetailsModalOpen}
 					setIsDetailsModalOpen={setIsDetailsModalOpen}
 					asset={asset}
 				/>
