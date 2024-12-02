@@ -39,7 +39,6 @@ const Remove = ({ setIsRemoveAssetsModalOpen, assets, setAssets }) => {
 
 				<form onSubmit={removeAssetHandler}>
 					<select name="removeAsset" id="removeAsset" className="h-10 px-4 py-2 border-none rounded-md font-josefin font-semibold mb-4">
-						{console.log('Assets:', assets)}
 						{assets && (
 							assets.map((assetObj, index) => (
 								<option key={index} value={assetObj.id}>{assetObj.id.toUpperCase()}</option>

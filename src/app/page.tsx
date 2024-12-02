@@ -15,14 +15,14 @@ import List from '@/components/List';
 
 export default function Home() {
   const [trackedAssets, setTrackedAssets] = useState([])
-  const [markets, setMarkets] = useState([])
+  const [markets, setMarkets] = useState(null)
   const [assets, setAssets] = useState([])
 
   // Makes API call to fetch market data
   const getMarkets = async () => {
     const ROOT_URL = `https://api.coingecko.com/api/v3`
     const ENDPOINT = `/coins/markets`
-    const AMOUNT = 500
+    const AMOUNT = 250
     const ARGUMENTS = `?vs_currency=usd&order=market_cap_desc&per_page=${AMOUNT}&page=1&sparkline=false&locale=en`
 
     const response = await fetch(ROOT_URL + ENDPOINT + ARGUMENTS)
@@ -35,7 +35,12 @@ export default function Home() {
     const id = trackedAssets[trackedAssets.length - 1]
 
     // Market data
-    const market = markets.find((market) => market.id === id.asset)
+    const market = markets?.find((market) => market.id === id.asset)
+
+    if (!market) {
+      console.error(`Market data not found for asset ID: ${id}`)
+      return
+    }
 
     // Asset details (API Endpoint)
     const ROOT_URL = `https://api.coingecko.com/api/v3`
