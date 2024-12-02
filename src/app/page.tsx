@@ -35,6 +35,7 @@ export default function Home() {
     const id = trackedAssets[trackedAssets.length - 1]
 
     // Market data
+    eslint-disable-next-line
     const market = markets?.find((market) => market.id === id.asset)
 
     if (!market) {
@@ -87,7 +88,7 @@ export default function Home() {
     if (!markets) {
       getMarkets()
     }
-  }, [])
+  }, [markets])
 
   useEffect(() => {
     if(markets && trackedAssets.length !== 0) {
