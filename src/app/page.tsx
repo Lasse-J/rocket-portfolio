@@ -15,7 +15,7 @@ import List from '@/components/List';
 
 export default function Home() {
   const [trackedAssets, setTrackedAssets] = useState([])
-  const [markets, setMarkets] = useState(null)
+  const [markets, setMarkets] = useState([])
   const [assets, setAssets] = useState([])
 
   // Makes API call to fetch market data
