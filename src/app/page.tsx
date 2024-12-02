@@ -39,10 +39,10 @@ export default function Home() {
 
     // Asset details (API Endpoint)
     const ROOT_URL = `https://api.coingecko.com/api/v3`
-    const ASSET_ENDPOINT = `/coins/${id.asset}`
-    const ASSET_ARGUMENTS = `?tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
+//    const ASSET_ENDPOINT = `/coins/${id.asset}`
+//    const ASSET_ARGUMENTS = `?tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
 
-    const assetResponse = await fetch(ROOT_URL + ASSET_ENDPOINT + ASSET_ARGUMENTS)
+//    const assetResponse = await fetch(ROOT_URL + ASSET_ENDPOINT + ASSET_ARGUMENTS)
 //    const tokensSnapshot = await assetResponse.json()
 
     // Prices
