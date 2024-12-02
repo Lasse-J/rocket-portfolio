@@ -27,8 +27,7 @@ Next.js,
 TypeScript,
 Tailwind css,
 ShadCN,
-Drizzle ORM,
-Postgre database
+Coingecko.com APIs
 ```
 
 ## Deployment
