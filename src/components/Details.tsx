@@ -1,75 +1,104 @@
 import Image from 'next/image'
 import close from '@/app/assets/close.svg'
-import up from '@/app/assets/up.svg'
-import down from '@/app/assets/down.svg'
+import up from '@/app/assets/up-white.svg'
+import down from '@/app/assets/down-white.svg'
 
 const Details = ({ isDetailsModalOpen, setIsDetailsModalOpen, asset }) => {
 	const closeHandler = () => {
 		setIsDetailsModalOpen(false)
 	}
 
-	return (
-		<div className="popup fixed top-0 left-0 z-[100] bg-black/50 w-full h-full">
-			<div className="popup__content details absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light dark:bg-secondary-dark dark:text-white w-[80%] h-[30%] p-4 rounded-lg">
+return (
+  <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black/50">
+    <div className="relative bg-secondary-dark text-gray-100 dark:text-white w-[90%] sm:w-[80%] md:w-[60%] lg:w-[40%] max-h-[80%] p-6 rounded-lg shadow-xl overflow-y-auto">
+      {/* Close Button */}
+      <button
+        className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 transition"
+        onClick={closeHandler}
+        aria-label="Close popup"
+      >
+        <Image src={close} width={20} height={20} alt="Close popup" />
+      </button>
 
-				{console.log('Asset in Details:', asset)}
+      {/* Header Section */}
+      <div className="flex items-center gap-4 mb-6">
+        <Image
+          src={asset.market.image}
+          width={50}
+          height={50}
+          alt={`${asset.market.name} logo`}
+          className="rounded-full"
+        />
+        <div>
+          <h3 className="text-xl font-bold">
+            {asset.market.name} <span className="text-gray-400">({asset.market.symbol.toUpperCase()})</span>
+          </h3>
+        </div>
+      </div>
 
-				<div className="details__title">
-					<Image 
-						src={asset.market.image}
-						width={40}
-						height={40}
-						alt='Asset image'
-					/>
-					<h3>{asset.market.name}<small> ({asset.market.symbol.toUpperCase()})</small></h3>
-				</div>
-				
-				<hr />
+      <hr className="border-gray-700 mb-4" />
 
-				<div className="asset__price">
-					<p>
-						{asset.market.current_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+      {/* Price Section */}
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-2xl font-extrabold text-blue-400">
+          {asset.market.current_price.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          })}
+        </p>
+        <div className="flex items-center gap-2">
+          <Image
+            src={asset.market.price_change_percentage_24h < 0 ? down : up}
+            width={20}
+            height={20}
+            alt="Change direction"
+          />
+          <span
+            className={`text-lg font-semibold ${
+              asset.market.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-500'
+            }`}
+          >
+            {asset.market.price_change_percentage_24h.toFixed(2)}%
+          </span>
+        </div>
+      </div>
 
-						<small>
-							<Image 
-								src={asset.market.price_change_percentage_24h < 0 ? down : up}
-								width={20}
-								height={20}
-								alt="Change direction"
-							/>
-							<span className={asset.market.price_change_percentage_24h < 0 ? "text-red-500" : "text-green-500"}>
-								{asset.market.price_change_percentage_24h.toFixed(2)}%
-							</span>
-						</small>
+      <hr className="border-gray-700 mb-4" />
 
-					</p>
-				</div>
-
-				<hr />
-
-				<div className="asset__details">
-					<div><h4>All Time High</h4><p>{asset.market.ath.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p></div>
-					<div><h4>From ATH</h4><p>{asset.market.ath_change_percentage.toFixed(2)}%</p></div>
-					<div><h4>Market Cap</h4><p>{asset.market.market_cap.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p></div>
-					<div><h4>Circulating Supply</h4><p>{asset.market.circulating_supply.toLocaleString('en-US')}</p></div>
-					<div><h4>Total Supply</h4><p>{asset.market.total_supply.toLocaleString('en-US')}</p></div>
-					<div><h4>MCap / FDV</h4><p>{(asset.market.market_cap / asset.market.fully_diluted_valuation).toFixed(2)}</p></div>
-				</div>
-
-				<div className="absolute top-[10%] left-[95%] transform -translate-x-1/2 -translate-y-1/2">
-					<button>
-						<Image
-							src={close}
-							width={25}
-							height={25}
-							onClick={closeHandler}
-							alt="Close popup"
-						/>
-					</button>
-				</div>				
-			</div>
-		</div>
-	)
+      {/* Details Grid */}
+      <div className="grid grid-cols-2 gap-4 text-sm">
+        <div>
+          <h4 className="text-gray-400">All Time High</h4>
+          <p>{asset.market.ath.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+        </div>
+        <div>
+          <h4 className="text-gray-400">From ATH</h4>
+          <p>{asset.market.ath_change_percentage.toFixed(2)}%</p>
+        </div>
+        <div>
+          <h4 className="text-gray-400">Market Cap</h4>
+          <p>{asset.market.market_cap.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+        </div>
+        <div>
+          <h4 className="text-gray-400">Circulating Supply</h4>
+          <p>{asset.market.circulating_supply.toLocaleString('en-US')}</p>
+        </div>
+        <div>
+          <h4 className="text-gray-400">Total Supply</h4>
+          <p>{asset.market.total_supply ? asset.market.total_supply.toLocaleString('en-US') : 'N/A'}</p>
+        </div>
+        <div>
+          <h4 className="text-gray-400">MCap / FDV</h4>
+          <p>
+            {asset.market.fully_diluted_valuation
+              ? (asset.market.market_cap / asset.market.fully_diluted_valuation).toFixed(2)
+              : 'N/A'}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 }
 
 export default Details;

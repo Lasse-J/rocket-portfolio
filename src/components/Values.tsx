@@ -43,8 +43,8 @@ const Values = ({ assets }) => {
 	}, [assets])
 
 	return (
-		<div className="values bg-secondary-light col-span-full row-start-2 my-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 grid-dense place-items-end items-center pb-8 transition-all duration-250 ease-in-out">
-			<div className="bg-primary-light text-light w-full h-[400px] p-4 rounded-md relative">
+		<div className="values bg-secondary-light w-[50%] h-[fit] my-4 gap-4 pb-1 transition-all duration-250 ease-in-out">
+			<div className="bg-primary-light text-light p-4 w-full h-full rounded-md relative">
 				<h3 className="values__title">Portfolio Value</h3>
 				<div className="values__chart">
 
@@ -88,7 +88,7 @@ const Values = ({ assets }) => {
 								},
 							},
 							markers: {
-								size: 6,
+								size: 0,
 								colors: ['#2F4858'],
 								strokeColors: '#fff',
 								strokeWidth: 2,

@@ -1,4 +1,7 @@
+'use client'
+
 import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
 
 import Image from 'next/image'
 
@@ -14,6 +17,8 @@ import down from '@/app/assets/down.svg'
 
 const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets }) => {
 	const [value, setValue] = useState(0)
+	const [btcMarkets, setBtcMarkets] = useState([])
+	const [bitcoinPrice, setBitcoinPrice] = useState(0)
 	const [percentageChange, setPercentageChange] = useState(0)
 
 	const [isAssetsModalOpen, setIsAssetsModalOpen] = useState(false)
@@ -56,6 +61,31 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 		setPercentageChange(change)
 	}
 
+	const resetAssets = () => {
+		setTrackedAssets([])
+		setAssets([])
+	}
+
+  const getBtcMarkets = async () => {
+    const ROOT_URL = `https://api.coingecko.com/api/v3`
+    const ENDPOINT = `/coins/markets`
+    const ARGUMENTS = `?vs_currency=usd&ids=bitcoin&order=market_cap_desc&per_page=1&page=1&sparkline=false&locale=en`
+
+    try {
+	    const response = await fetch(ROOT_URL + ENDPOINT + ARGUMENTS)
+	    const data = await response.json()
+	    setBtcMarkets(data)
+    } catch (error) {
+    	console.log('Failed to fetch (BTC) markets:', error)
+    }
+  }
+
+  const getBitcoinPrice = async () => {
+  	if (btcMarkets && btcMarkets.length > 0) {
+  		setBitcoinPrice(btcMarkets[0].current_price)
+  	}
+  }
+
 	useEffect(() => {
 		if (assets.length === 0) {
 			setValue(0)
@@ -66,8 +96,20 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 		}
 	})
 
+  useEffect(() => {
+  	if (btcMarkets.length === 0) {
+  		getBtcMarkets()
+  	}
+  }, [])
+
+  useEffect(() => {
+  	if (btcMarkets) {
+  		getBitcoinPrice()
+  	}
+  }, [btcMarkets])
+
 	return(
-		<div className="overview bg-secondary-light col-span-full row-start-2 my-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 grid-dense place-items-end items-center pb-8 transition-all duration-250 ease-in-out">
+		<div className="overview bg-secondary-light col-span-full row-start-2 my-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 grid-dense place-items-end items-center pb-2 transition-all duration-250 ease-in-out">
 			<div className="overview__tracked bg-primary-light text-light w-full h-[125px] p-4 rounded-md relative">
 				<h3>Selected Assets</h3>
 					<div className="absolute top-[50%] left-[10%] transform -translate-x-1/2 -translate-y-1/2">
@@ -91,10 +133,14 @@ const Overview = ({ markets, trackedAssets, setTrackedAssets, assets, setAssets 
 						/>
 					</button>
 				</div>
+				<div>
+					<Button onClick={resetAssets}>Reset All</Button>
+				</div>
 			</div>
 			<div className="overview__total bg-primary-light text-light w-full h-[125px] p-4 rounded-md relative">
 				<h3>Total Value</h3>
 				<p>{value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
+				<p className="text-sm">{(value / bitcoinPrice).toFixed(4)} BTC</p>
 			</div>
 			<div className="overview__change bg-primary-light text-light w-full h-[125px] p-4 rounded-md relative">
 				<h3>24h Change</h3>

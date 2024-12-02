@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
-import { Josefin_Sans } from 'next/font/google';
-const josefin_sans = Josefin_Sans({ subsets: ['latin'] })
+import { Josefin_Sans, Roboto, Goldman } from 'next/font/google';
+const josefin_sans = Josefin_Sans({ subsets: ['latin'] });
+const roboto = Roboto({ weight: '300', subsets: ['latin'] });
+const goldman = Goldman({ weight: '400', subsets: ['latin'] });
 
 // Components
 import Navbar from '@/components/Navbar';
@@ -24,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={josefin_sans.className}>
+      <body className={goldman.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

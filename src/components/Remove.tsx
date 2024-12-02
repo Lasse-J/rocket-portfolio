@@ -22,7 +22,7 @@ const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTracked
 	return (
 		<div className="popup fixed top-0 left-0 z-[100] bg-black/50 w-full h-full">
 			<div className="popup__content remove__assets absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-secondary-light text-light dark:bg-secondary-dark dark:text-white w-[30%] h-[25%] p-4 rounded-lg">
-				<h3 className="dark:text-black">Remove Asset</h3>
+				<h3 className="dark:text-white">Remove Asset</h3>
 				<br />
 
 				<div className="absolute top-[10%] left-[95%] transform -translate-x-1/2 -translate-y-1/2">
@@ -42,7 +42,7 @@ const Remove = ({ setIsRemoveAssetsModalOpen, markets, trackedAssets, setTracked
 						{console.log('Assets:', assets)}
 						{assets && (
 							assets.map((assetObj, index) => (
-								<option key={index} value={assetObj.id}>{assetObj.id.toUpperCase()} ({assetObj.balance})</option>
+								<option key={index} value={assetObj.id}>{assetObj.id.toUpperCase()}</option>
 							))
 						)}
 					</select>

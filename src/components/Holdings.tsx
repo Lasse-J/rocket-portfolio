@@ -30,16 +30,17 @@ const Holdings = ({ assets }) => {
 	}, [assets])
 
 	return (
-		<div className="holdings bg-secondary-light col-span-full row-start-2 my-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 grid-dense place-items-end items-center pb-8 transition-all duration-250 ease-in-out">
-			<div className="bg-primary-light text-light w-full h-[400px] p-4 rounded-md relative">
+		<div className="holdings bg-secondary-light w-[50%] h-[fit] my-4 gap-4 pb-1 transition-all duration-250 ease-in-out">
+			<div className="bg-primary-light text-light h-full p-4 rounded-md relative">
 				<h3 className="holdings__title">Holdings</h3>
+
 				<div className="holdings__chart place-items-center">
 
 					<Chart
 						options={{
 							labels: symbols ? symbols : defaultSymbols,
 							legend: {
-								position: 'left',
+								position: 'bottom',
 								horizontalAlign: 'center',
 								labels: {
 									colors: '#000000'
@@ -48,7 +49,7 @@ const Holdings = ({ assets }) => {
 						}}
 						series={values ? values : defaultValues}
 						type="pie"
-						height={300}
+						height={350}
 					/>
 
 				</div>

@@ -2,7 +2,7 @@ const Footer = () => {
 	return (
 		<footer className="text-center">
 
-			<p>Copyright &copy; Lasse Juusela</p>
+			<p>Copyright &copy; {new Date(Date.now()).getFullYear()} Lasse Juusela</p>
 
 		</footer>
 	)

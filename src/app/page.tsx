@@ -91,36 +91,44 @@ export default function Home() {
   }, [trackedAssets])
 
   return (
-    <main className="flex flex-col justify-center text-center text-black max-w-7xl mx-auto h-full">
-      <div className="flex flex-col gap-6 p-12 rounded-xl bg-secondary-light w-4/5 mt-2 mx-auto sm:text-2xl">
-        <h2>Portfolio Overview</h2>
+    <div className="bg-gradient-to-t from-white via-slate-300 to-white dark:bg-gradient-to-t dark:from-black dark:via-slate-800 dark:to-black">
+      <main className="flex flex-col justify-center text-center text-black max-w-7xl mx-auto h-full scrollbar-hide">
+        <div className="flex flex-col gap-2 px-12 py-6 rounded-xl bg-secondary-light w-4/5 mt-2 mx-auto sm:text-2xl scrollbar-hide">
+          <h2 className="text-white">Portfolio Overview</h2>
 
-        <Overview 
-          markets={markets}
-          trackedAssets={trackedAssets}
-          setTrackedAssets={setTrackedAssets}
-          assets={assets}
-          setAssets={setAssets}
-        />
+          <Overview 
+            markets={markets}
+            trackedAssets={trackedAssets}
+            setTrackedAssets={setTrackedAssets}
+            assets={assets}
+            setAssets={setAssets}
+          />
+          <section id="charts" />
 
-        <Holdings 
-          assets={assets}
-        />
+          <div className="flex flex-row justify-center gap-6">
+            <Holdings
+              assets={assets}
+            />
 
-        <Values 
-          assets={assets}
-        />
+            <Values 
+              assets={assets}
+            />
+          </div>
 
-        <List 
-          assets={assets}
-          setAssets={setAssets}
-          setTrackedAssets={setTrackedAssets}
-        />
-      </div>
-      <div className="details">
-        <div className="divider absolute top-[100px] -left-1/2 -z-50 w-[200%] h-[50px] bg-blue-500">
+          <section id="portfolio" />
+            <List 
+              markets={markets}
+              assets={assets}
+              setAssets={setAssets}
+              trackedAssets={trackedAssets}
+              setTrackedAssets={setTrackedAssets}
+            />
         </div>
-      </div>
-    </main>
+        <div className="details">
+          <div className="divider absolute top-[100px] -left-1/2 -z-50 w-[150%] h-[60px] bg-blue-500">
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
